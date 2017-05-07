@@ -15,13 +15,18 @@
 </head>
 <body>
 		<div id="zmz" >
-			<h1 :class="classObj">computed Test : {{HELLO}}</h1>
-			<button @click="showmeSomething" :disabled="show">
+			<h1 :class="classObj" :style="inlineStyle">computed Test : {{HELLO}}</h1>
+			<button @click.ctrl="showmeSomething">
 				showmeSomething {{HELLO}}
 			</button>
-			<span v-once>{{inputs}}</span>
+			<button :disabled="show">diabled buttons</button>
+			<span v-once v-if="show" key="aaa">{{inputs}}</span>
+			<span v-once v-else key='BBB'>{{inputs}} HIDDEN</span>
 			<p>{{inputsB}}</p>
 			<input type="text" v-model="inputs"/>
+			<div>
+				<span v-for="one in listTwo" @click="list1Click">{{one}}</span>
+			</div>
 			<ul>
 				<li v-for="one in lists" :data-value="one.title">
 					{{one.name | BIGJJ}}
@@ -55,6 +60,10 @@
 			name: "zhangmingzhi",
 			show: false,
 			inputs: "zmz",
+			inlineStyle: {
+				fontSize: 30,
+				textDecoration: "underline"
+			},
 			inputsB: "",
 			fakeHtml: '<p>a ha, im inerting html!</p>',
 			msg: "a hidding message",
@@ -72,11 +81,12 @@
 					title: "asd"
 				}
 
-			]
+			],
+			listTwo: [1,2,3,4]
 		},
 		methods: {
 			showmeSomething: function(a){
-				this.show = true;
+				this.show = !this.show;
 				//如果要激活computed的setter的话，直接给computed赋值即可.
 				//如果只是调用Computed中getter监控的属性的话，赋值监控的属性即可。
 				this.HELLO = 'zmz';
@@ -84,6 +94,10 @@
 					h1class: false,
 					h2class: true
 				}
+			},
+			list1Click: function(e){
+				console.log(e.target)
+				console.log(this)
 			}
 		},
 		filters: {
