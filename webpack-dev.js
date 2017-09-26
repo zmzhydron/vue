@@ -8,36 +8,36 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dev/src"),
     filename: "[name].js",
-    publicPath: "/src/"
+    publicPath: "/fuckoff/"
   },
-  devtool: 'eval-source-map',
-  // externals: {
-  //   'jquery' : 'jQuery',
-  //   'jquery' : '$'
-  // },
+  // devtool: 'eval-source-map',
+  externals: {
+    'jquery' : 'jQuery',
+    'jquery' : '$'
+  },
   devServer: {
-    contentBase: path.join(__dirname, "./dev"),
+    contentBase: path.resolve(__dirname, "./dev"),
     port: 5678,
     inline: true,
     hot: true,
+    host: "10.0.2.203"
   },
   plugins : [
     new webpack.HotModuleReplacementPlugin(),
     //拷贝打包目录下的文件、文件夹到指定的输出
     new CopyWebpackPlugin([
-      // {
-      //   from: path.join(__dirname, "./client/src/rawSrc"), 
-      //   to: path.join(__dirname, "./build/src/rawSrc")
-      // },
+      {
+        from: path.join(__dirname, "./client/t.js"), 
+        // to: path.join(__dirname, "./dev/src/t.js")
+      },
       {
         from: path.join(__dirname, "./node_modules/_jquery@3.2.1@jquery/dist/jquery.min.js"),
         to: path.join(__dirname, "./dev/src/jquery.min.js")
       }
     ]),
     new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      // tools: "tools"
+      // $: "jquery",
+      // jQuery: "jquery"
     }),
 
     // new webpack.DllReferencePlugin({
@@ -52,10 +52,7 @@ module.exports = {
         test: /\.js?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',  
-          query: {
-              presets: ['es2015','stage-0'],
-          }
+          loader: 'babel-loader'
         }
       },
       {
