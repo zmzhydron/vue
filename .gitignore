@@ -1,0 +1,10 @@
+/node_modules/*
+/shitbird/*
+/build/*
+client/photolist/*
+/dev/*
+webpack
+webpack.cmd
+cnpm
+cnpm.cmd
+.vscode
