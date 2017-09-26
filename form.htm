@@ -21,28 +21,38 @@
 				<span>@: {{index}}</span>
 			</div>
 		</div>
-		<One :fuckyou="radios" :renderlist="sonlist" :value="sonValue" @updateparents="updateSonValue" :counter="sonclick" @meclick="sonck" >
-			<!-- <p> yeah ! btich</p> -->
-			<!-- <p> fucking fuck</p> -->
-			<p slot="stocking"> fucking fish net nice</p>
-			<p slot="ass"> fucking juicy ass</p>
+		<div v-testd.a.b.c="testD"></div>
+		<One :fuckyou="radios" :renderlist="sonlist"  :value="sonValue" @updateparents="updateSonValue" :counter="sonclick" @meclick="sonck" @dbclic="emitone">
+			<p slot="slotOne">default slot</p>
+			<p slot="slotTwo">default slot two</p>
+			<p slot="stocking">222e</p>
+			<p slot="ass"> 1111</p>
 			<template scope="dog">
-				<h3 v-for="one in dog.asdf">{{one}}</h3>
+				<h3 v-for="one in dog.asdf">{{sonname | uperOne}}  thinks i like fu*k this wm : {{one}}</h3>
 			</template>
 		</One>
 	</div>
 </body>
 <script type="text/javascript">
-
+Vue.directive("testd", {
+	bind: function(el,bind,vnode){
+		el.innerHTML = "<h1>cus directive testD</h1>"
+		console.log(el)
+		console.log(bind)
+		console.log(vnode)
+	}
+})
 	var app = new Vue({
 		el: "#aaa",
 		data: {
 			name: "zhangmingzhi",
 			c1: true,
 			radios: "aaa",
+			testD: 'zmz',
 			sonValue: "",
 			sonclick: 0,
-			sonlist: ['lisaAnn','kedra lust', 'regkent'],
+			sonname: "",
+			sonlist: ['lisaAnn','kendra lust', 'regkent'],
 			lista: [
 				{
 					name: "xixi",
@@ -71,6 +81,16 @@
 			updateSonValue: function(value){
 				console.log("value: ", value)
 				this.sonValue = value;
+			},
+			emitone: function(){
+				let list = [].slice.call(arguments);
+				list.forEach( (item,index) =>{
+					console.log(`argument index:${index+1} is ${item}`)
+				})
+				this.sonname = list[0];
+				this.$nextTick(function(){
+					console.log(this.sonname);
+				})
 			}
 		},
 		computed: {
@@ -89,8 +109,12 @@
 		filters: {
 			uper: function(val){
 				return val.toUpperCase();
+			},
+			uperOne: function(val){
+				return val.slice(0,1).toUpperCase()+val.slice(1)
 			}
 		}
+
 	})
 
 </script>

@@ -3,16 +3,16 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
 module.exports = {
   entry: {
-    lol: path.resolve(__dirname,"./src/index.js"),
+    lol: path.resolve(__dirname,"./client/index.js"),
   },
   output: {
-    path: path.resolve(__dirname, "./build/src"),
+    path: path.resolve(__dirname, "./build"),
     filename: "[name].js",
     // publicPath: "http://www.zzhangmingzhimba.com:8081/"
     // publicPath: "http://localhost:8081/"
     publicPath: "./"
   },
-  devtool: 'eval-source-map',
+  // devtool: 'eval-source-map',
   plugins : [
     //拷贝打包目录下的文件、文件夹到指定的输出
     new CopyWebpackPlugin([
