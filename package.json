@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack-dev.js",
-    "build": "webpack --config webpack-build.js"
+    "build": "webpack --config webpack-dll.js &&  webpack --config webpack-build.js"
   },
   "devServer": {
     "src": "http://10.0.2.203:3000"
@@ -27,9 +27,12 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "superagent": "^3.6.0",
+    "template-html-loader": "^1.0.0",
     "url-loader": "^0.5.9",
     "vue": "^2.4.4",
+    "vue-html-loader": "^1.2.4",
     "vue-loader": "^13.0.5",
+    "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-server": "2.7.1"

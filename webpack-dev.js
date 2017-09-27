@@ -1,25 +1,42 @@
 var path = require("path")
 var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
+
+//lol: path.resolve(__dirname,"./client/index.js"),
+
 module.exports = {
   entry: {
-    lol: path.resolve(__dirname,"./client/index.js"),
+    "index": [
+      // `webpack-dev-server/client?http://10.0.2.203:8899/`,
+      path.resolve(__dirname,"./client/index.js")
+    ]
   },
   output: {
     path: path.resolve(__dirname, "./dev"),
-    filename: "[name].js",
-    publicPath: "/fuckoff/"
+    filename: "lol.js",
+    publicPath: "/src/"
   },
-  // devtool: 'eval-source-map',
+  // context: path.resolve(__dirname, "./client"),
+  devtool: 'eval-source-map',
   externals: {
     'jquery' : 'window.jQuery',
     'jquery' : 'window.$',
+    'Vue': "Vue",
   },
   devServer: {
-    contentBase: path.join(__dirname, "./dev"),
+    contentBase: path.join(__dirname, "./client"),
     port: 8899,
     inline: true,
+    noInfo: false,
     hot: true,
+    stats: { colors: true },
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/$/, to: 'index.htm' },
+    ],
+    },
+    // open: true,
+    // openPage: "app.htm",
     host: "10.0.2.203"
   },
   plugins : [
@@ -27,43 +44,50 @@ module.exports = {
     //拷贝打包目录下的文件、文件夹到指定的输出
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, "./client/t.js"), 
-        // to: path.join(__dirname, "./dev/src/t.js")
-      },
-      {
         from: path.join(__dirname, "./node_modules/jquery/dist/jquery.min.js"),
         // to: path.join(__dirname, "./dev/src/jquery.min.js")
+      },
+      {
+        from: path.join(__dirname, "./node_modules/vue/dist/vue.js"),
+        to: "vue.js"
       }
     ]),
     new webpack.ProvidePlugin({
       // $: "jquery",
-
       // jQuery: "jquery",
-      // tools: "tools"
     }),
-
-    // new webpack.DllReferencePlugin({
-    //   context: __dirname,
-    //   manifest: require('./manifest.json'),
-    // })
   ],
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',  
           query: {
-              presets: [
-                ["env", {
-                  "targets": {
-                    "browsers": ["last 2 versions", "ie >= 9"]
-                  }
-                }]
-              ]
-          }
+            presets: [
+              ["env", {
+                "targets": {
+                  "browsers": ["last 2 versions", "ie >= 9"]
+                }
+              }]
+            ]
         }
+        }
+      },
+      {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        loader: "vue-loader",
+      },
+      {
+        test: /\.css?$/,
+        exclude: /node_modules/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /(\.html|\.htm)$/,
+        loaders: ['file-loader?name=[path][name].[ext]', 'template-html-loader?raw=true&engine=lodash&isDev=true']
       },
       {
         test: /\.scss?$/,
@@ -71,13 +95,24 @@ module.exports = {
         loader: "style-loader!css-loader!sass-loader"
       },
       {
-        test: /\.(jpg|png)$/,
+        test: /\.(jpg|png|gif)$/,
         exclude: /node_modules/,
-        loader: "url-loader?limit=1&nameimgs/[hash:5].[name].[ext]"
+        loader: "url-loader",
+        options: {
+          limit: 1,
+          name: "./Images/[name]-[hash:4].[ext]"
+        }
       }
     ]
   },
   resolve: {
-    extensions: [".vue",'.js','.coffee']
+    modules: [
+      'client',
+      'node_modules'
+    ],
+    extensions: [".vue",'.js','.coffee'],
+    alias: {
+      // "vue$": path.join(__dirname, "./node_modules/vue/dist/vue.js")
+    }
   }
 }
