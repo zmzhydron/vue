@@ -2,18 +2,15 @@ var path = require("path")
 var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
 
-//lol: path.resolve(__dirname,"./client/index.js"),
+//,
 
 module.exports = {
   entry: {
-    "index": [
-      // `webpack-dev-server/client?http://10.0.2.203:8899/`,
-      path.resolve(__dirname,"./client/index.js")
-    ]
+    lol: path.resolve(__dirname,"./client/index.js")
   },
   output: {
     path: path.resolve(__dirname, "./dev"),
-    filename: "lol.js",
+    filename: "[name].js",
     publicPath: "/src/"
   },
   // context: path.resolve(__dirname, "./client"),
@@ -37,7 +34,7 @@ module.exports = {
     },
     // open: true,
     // openPage: "app.htm",
-    host: "10.0.2.203"
+    // host: "10.0.2.203"
   },
   plugins : [
     new webpack.HotModuleReplacementPlugin(),
