@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+
+function ProtyoeExtend(f,s){
+	function Temp(){}
+	s.prototype = f.prototype;
+	console.log(f.prototype)
+	console.log(new f())
+	// s.prototype = new Temp();
+}
+
+	function Person(name){
+		this.name = name;
+		this.say = function(){
+			console.log(`i am a Person, and my name is ${this.name}`)
+		}
+	}
+	Person.prototype.run = function(){
+		console.log(` iam a person name is ${this.name}, and my running`)
+	}
+	function Me(skill,name){
+		Person.call(this,name)
+		this.skill = skill;
+		this.showSkill = function(){
+			console.log(`my skill is ${this.skill}`)	
+		}
+	}
+	ProtyoeExtend(Person,Me)
+	Me.prototype.fuck = function(){
+		console.log('fuck is natrueal instint')
+	}
+	// Me.prototype = new Person();
+	
+
+	var me = new Me("javascript",'zhangmingzhi')
+	me.say();
+	me.showSkill();
+	me.run();
+	me.fuck()
+</script>
+</html>

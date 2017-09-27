@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript" src="component/1.js"></script>
+</head>
+<body>
+	<div id="aaa">
+		{{name | uper}}
+		<p>{{c2Computed}}</p>
+		<div id="bb">
+			<input type="checkbox" v-model="c1Computed">
+		</div>
+		<div id="zz">
+			<p>current: @ {{ radios | uper}}</p>
+			<div v-for="(item ,index) in lista">
+				<input type="radio" :id='item.value' :value="item.value" @click="ckfn" v-model="radios" />
+				<label :for="item.value">{{item.name}}</label>
+				<span>@: {{index}}</span>
+			</div>
+		</div>
+		<div v-testd.a.b.c="testD"></div>
+		<One :fuckyou="radios" :renderlist="sonlist"  :value="sonValue" @updateparents="updateSonValue" :counter="sonclick" @meclick="sonck" @dbclic="emitone">
+			<p slot="slotOne">default slot</p>
+			<p slot="slotTwo">default slot two</p>
+			<p slot="stocking">222e</p>
+			<p slot="ass"> 1111</p>
+			<template scope="dog">
+				<h3 v-for="one in dog.asdf">{{sonname | uperOne}}  thinks i like fu*k this wm : {{one}}</h3>
+			</template>
+		</One>
+	</div>
+</body>
+<script type="text/javascript">
+Vue.directive("testd", {
+	bind: function(el,bind,vnode){
+		el.innerHTML = "<h1>cus directive testD</h1>"
+		console.log(el)
+		console.log(bind)
+		console.log(vnode)
+	}
+})
+	var app = new Vue({
+		el: "#aaa",
+		data: {
+			name: "zhangmingzhi",
+			c1: true,
+			radios: "aaa",
+			testD: 'zmz',
+			sonValue: "",
+			sonclick: 0,
+			sonname: "",
+			sonlist: ['lisaAnn','kendra lust', 'regkent'],
+			lista: [
+				{
+					name: "xixi",
+					value: "aaa1"
+				},
+				{
+					name: "haha",
+					value: "bbb2"
+				},
+				{
+					name: "gigi",
+					value: "ccc3"
+				},
+			]
+		},
+		methods: {
+			ckfn: function(e){
+				console.log(e.target);
+				let val = e.target.getAttribute("value");
+				this.radios = val;
+			},
+			sonck: function(a,b,c){
+				console.log('son click',a,b,c)
+				this.sonclick++;
+			},
+			updateSonValue: function(value){
+				console.log("value: ", value)
+				this.sonValue = value;
+			},
+			emitone: function(){
+				let list = [].slice.call(arguments);
+				list.forEach( (item,index) =>{
+					console.log(`argument index:${index+1} is ${item}`)
+				})
+				this.sonname = list[0];
+				this.$nextTick(function(){
+					console.log(this.sonname);
+				})
+			}
+		},
+		computed: {
+			c1Computed: function(v){
+				if(this.name === 'zhangmingzhi'){
+					return true;
+				}else{
+					return false;
+				}
+			},
+			c2Computed: function(v){
+				// console.log(v);
+
+			}
+		},
+		filters: {
+			uper: function(val){
+				return val.toUpperCase();
+			},
+			uperOne: function(val){
+				return val.slice(0,1).toUpperCase()+val.slice(1)
+			}
+		}
+
+	})
+
+</script>
+</html>

@@ -6,18 +6,18 @@ module.exports = {
     lol: path.resolve(__dirname,"./client/index.js"),
   },
   output: {
-    path: path.resolve(__dirname, "./dev/src"),
+    path: path.resolve(__dirname, "./dev"),
     filename: "[name].js",
     publicPath: "/fuckoff/"
   },
   // devtool: 'eval-source-map',
   externals: {
-    'jquery' : 'jQuery',
-    'jquery' : '$'
+    'jquery' : 'window.jQuery',
+    'jquery' : 'window.$',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "./dev"),
-    port: 5678,
+    contentBase: path.join(__dirname, "./dev"),
+    port: 8899,
     inline: true,
     hot: true,
     host: "10.0.2.203"
@@ -31,20 +31,21 @@ module.exports = {
         // to: path.join(__dirname, "./dev/src/t.js")
       },
       {
-        from: path.join(__dirname, "./node_modules/_jquery@3.2.1@jquery/dist/jquery.min.js"),
-        to: path.join(__dirname, "./dev/src/jquery.min.js")
+        from: path.join(__dirname, "./node_modules/jquery/dist/jquery.min.js"),
+        // to: path.join(__dirname, "./dev/src/jquery.min.js")
       }
     ]),
     new webpack.ProvidePlugin({
       // $: "jquery",
-      // jQuery: "jquery"
+
+      // jQuery: "jquery",
+      // tools: "tools"
     }),
 
     // new webpack.DllReferencePlugin({
     //   context: __dirname,
     //   manifest: require('./manifest.json'),
     // })
-    // new webpack.optimize.UglifyJsPlugin() //部署才用，作用是最小化文件，开发情况下会增加打包时间
   ],
   module: {
     rules: [
@@ -52,7 +53,16 @@ module.exports = {
         test: /\.js?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',  
+          query: {
+              presets: [
+                ["env", {
+                  "targets": {
+                    "browsers": ["last 2 versions", "ie >= 9"]
+                  }
+                }]
+              ]
+          }
         }
       },
       {
