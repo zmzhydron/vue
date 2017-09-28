@@ -1,109 +1,88 @@
 import "babel-polyfill"
 import "./index.htm"
-import VueRouter from 'vue-router'
-import vv from "./index.vue"
+import router from "router.js"
+import store from "./src/vuex/store.js"
+import vv from "./src/vue/index.vue"
+
+import Vuex from "vuex"
+// import comp from "comp.js"
 import "./src/images/1.png"
 import "./src/css/1.scss"
-
-const Me = {
-  template: `
-    <div>
-      <h1 style="color: red">{{ $route.params.suckit}}</h1>
-      <router-view></router-view>
-      <router-view name="one"></router-view>
-      <router-view name="two"></router-view>
-    </div>
-  `
-}
-const age = {
-  template: '<div><h1>age!!</h1></div>'
-}
-const nulls = {
-  template: '<div><h1>shit</h1></div>'
-}
-
-
-let one1 = {
-  template: '<div><h1>1111 ROOT</h1></div>'
-}
-let one2 = {
-  template: '<div><h1>1111 me</h1></div>'
-}
-
-
-let two1 = {
-  template: '<div><h1>2222 ROOT</h1></div>'
-}
-let two2 = {
-  template: '<div><h1>3333333333333 me</h1></div>'
-}
-
-
-const routes = [
-  {
-    path: '/me/:suckit',
-    components: {
-      default: Me,
-      one: one1,
-      two: two1,
-    },
-    children: [{
-        path: "age",
-        components: {
-          default: age,
-          one: one2,
-          two: two2,
-        },
-      },
-      // {
-      //   path: "",
-      //   component: nulls
-      // }
-    ]
-  },
-    {
-    path: '/yo/:suckit',
-    components: {
-      default: Me,
-      one: one2,
-      two: two2,
-    },
-    children: [{
-        path: "age",
-        components: {
-          default: age,
-          one: one1,
-          two: two1,
-        },
-      },
-      // {
-      //   path: "",
-      //   component: nulls
-      // }
-    ]
-  },
-]
-
-const router = new VueRouter({
-  routes // （缩写）相当于 routes: routes
+store.dispatch('b/add2', "张明之").then( val => {
+  console.log(val," ~~~~~~~~ ")
+  console.log(store.state.a, store.state.b)
+  
+  store.dispatch('b/add2', "sjb").then( val => {
+    console.log(val," ~~~~~~~~ ")
+    console.log(store.state.a, store.state.b)
+  })
 })
 
+var gd = {
+  props: ['name', 'age', 'type'],
+  template: `
+    <h2 style="color:green">
+      <slot >zmz slot show!!!</slot>
+      <slot name="zy" values="1234"> gd slot show!!</slot>
+      {{type}}111{{name}}{{age}}
+    </h2>`,
+};
+var zy = {
+  
+}
+
+Vue.component('zy',{
+  props: ["hehe", "name", "fuckyou"],
+  template: `<h3 style="color:purple" ><slot> zhou yan </slot>zy {{name}} </h3>`,
+})
+
+//<goudan shitman="true" type="oops" v-bind="subject"></goudan>
+var ZMZCOMP = {
+  template: `
+    <h2 color="red">zhangmingzhi COMP  {{name}} ---- 
+      <goudan shitman="true" type="oops" v-bind="subject">
+        <zy slot="zy" :name="name" ></zy>
+      </goudan>
+    </h2>`,
+  data: function(){
+    return {
+      name: "狗蛋儿二",
+      subject: {
+        name: "狗蛋儿",
+        age: '18month'
+      }
+    }
+  },
+  components: {
+    goudan: gd
+  }
+}
 
 const app = new Vue({
   router
 }).$mount('#app')
 
+var hehe = new Vue({
+  el: "#hehe",
+  data: {
+    sname: "这么早",
+    age: 17,
+    name: "狗蛋儿"
+  },
+  computed: {
+    myname: function(){
+      return "fuckyou1"
+    }
+  },
+  components: {
+    zhangmingzhi: ZMZCOMP,
+    goudan: gd
+  }
+})
 
-// var data = {
-//   name: "zhangmingzhi"
-// }
-// var ve = new Vue({
-//   el: "#app",
-//   data: data,
-//   components: {
-//     'my-component': vv
-//   }
-// })
+console.log(hehe.$el, " ******************* ")
+
+
 
 
 

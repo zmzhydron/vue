@@ -2,8 +2,6 @@ var path = require("path")
 var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
 
-//,
-
 module.exports = {
   entry: {
     lol: path.resolve(__dirname,"./client/index.js")
@@ -42,11 +40,9 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, "./node_modules/jquery/dist/jquery.min.js"),
-        // to: path.join(__dirname, "./dev/src/jquery.min.js")
       },
       {
         from: path.join(__dirname, "./node_modules/vue/dist/vue.js"),
-        to: "vue.js"
       }
     ]),
     new webpack.ProvidePlugin({
