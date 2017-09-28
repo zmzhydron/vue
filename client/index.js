@@ -3,28 +3,28 @@ import "./index.htm"
 import router from "router.js"
 import store from "./src/vuex/store.js"
 import vv from "./src/vue/index.vue"
-
-import Vuex from "vuex"
 // import comp from "comp.js"
 import "./src/images/1.png"
 import "./src/css/1.scss"
+import Vuex, { mapState ,} from "vuex"
+
 store.dispatch('b/add2', "张明之").then( val => {
-  console.log(val," ~~~~~~~~ ")
-  console.log(store.state.a, store.state.b)
-  
-  store.dispatch('b/add2', "sjb").then( val => {
-    console.log(val," ~~~~~~~~ ")
-    console.log(store.state.a, store.state.b)
-  })
+  console.log(store.state.b.count, " ~~~~~~~~~~~~~ ")
+
 })
 
 var gd = {
   props: ['name', 'age', 'type'],
+  computed: {
+    sonname: function(){
+      return this.$store.state.hehe.myname
+    }
+  },
   template: `
     <h2 style="color:green">
       <slot >zmz slot show!!!</slot>
       <slot name="zy" values="1234"> gd slot show!!</slot>
-      {{type}}111{{name}}{{age}}
+      {{type}}111{{name}}{{age}}---->>>{{sonname}}
     </h2>`,
 };
 var zy = {
@@ -32,7 +32,7 @@ var zy = {
 }
 
 Vue.component('zy',{
-  props: ["hehe", "name", "fuckyou"],
+  props: ["hehe", "name"],
   template: `<h3 style="color:purple" ><slot> zhou yan </slot>zy {{name}} </h3>`,
 })
 
@@ -59,9 +59,9 @@ var ZMZCOMP = {
 }
 
 const app = new Vue({
-  router
+  router,
+  store,
 }).$mount('#app')
-
 var hehe = new Vue({
   el: "#hehe",
   data: {
@@ -69,9 +69,15 @@ var hehe = new Vue({
     age: 17,
     name: "狗蛋儿"
   },
+  store,
   computed: {
     myname: function(){
-      return "fuckyou1"
+      return this.$store.state.hehe.myname;
+    }
+  },
+  methods: {
+    clicker: function(e){
+      store.dispatch("hehe/rewritename", "sjb")
     }
   },
   components: {
@@ -80,7 +86,6 @@ var hehe = new Vue({
   }
 })
 
-console.log(hehe.$el, " ******************* ")
 
 
 
@@ -89,27 +94,3 @@ console.log(hehe.$el, " ******************* ")
 
 
 
-
-
-// let me = {
-//   name: "zmz",
-//   age: "24"
-// }
-// let { name: a, age: b } = me;
-// console.log(a,b)
-// let list = [1,2,3,4,5];
-// list = list.map( (item ,index ) => {
-//   return item * 10 + " zmz ";
-// })
-// list = [...list, 'a','b'];
-// console.log(list);
-// console.log($)
-
-// function aa(){
-//   return new Promise( (resolve, reject) => {
-//     resolve("zhangmingzhi")
-//   })
-// }
-// aa().then( val => {
-//   console.log(val+"~~~~~~~~~~~~~~")
-// })

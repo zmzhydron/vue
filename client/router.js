@@ -10,12 +10,20 @@ const Me = {
   `
 }
 const age = {
-  template: '<div><h1>age!!</h1></div>'
+  props: ["name"],
+  template: '<div><h1>age!! {{name}}$!!!!!!!</h1></div>'
 }
 const nulls = {
   template: '<div><h1>shit</h1></div>'
 }
-
+const zmz = {
+  computed: {
+    asdf: function(){
+      return this.$store.state.hehe.myname
+    }
+  },
+  template: '<div><h1>shit --- > > {{asdf}}</h1></div>'
+}
 
 let one1 = {
   template: '<div><h1>1111 ROOT</h1></div>'
@@ -34,6 +42,14 @@ let two2 = {
 
 
 const routes = [
+  {
+    path: '/zmz',
+    components: {
+      default: zmz,
+      one: one1,
+      two: two1,
+    },
+  },
   {
     path: '/me/:suckit',
     components: {
