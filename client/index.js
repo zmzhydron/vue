@@ -8,44 +8,51 @@ import Vuex, { mapState ,} from "vuex"
 import * as asdf from "aijiakesi"
 
 import uploadvue from "./src/vue/upload.vue"
-
+      // <slot >zmz slot show!!!</slot>
+      // <slot name="zy" values="1234"> gd slot show!!</slot>
 var gd = {
-  props: ['name', 'age', 'type'],
+  props: ['age', "name", "oops", 'type',"yes", "nop"],
   computed: {
     sonname: function(){
       return this.$store.state.hehe.myname
     }
   },
   template: `
-    <h2 style="color:green">
-      <slot >zmz slot show!!!</slot>
-      <slot name="zy" values="1234"> gd slot show!!</slot>
-      {{type}}111{{name}}{{age}}---->>>{{sonname}}
+    <h2 style="color:orange">
+      {{type}} !~[{{oops}}]~{{nop}}~~<{{name}}>~111{{yes}}---->>>{{sonname}}
     </h2>`,
 };
-
+      // <slot name="zy" :obj="suject"></slot>
 var ZMZCOMP = {
+  props: ["nop"],
   template: `
-    <h2 color="red">zhangmingzhi COMP
+    <h2 color="red">
+      zhangmingzhi COMP
       <slot name="uploader"></slot>
+      <slot name="gd" oops="oops"></slot>
+      {{subject.name}}~~~~~{{testa}}
     </h2>`,
+  computed: {
+    testa: function(){
+      return "testa"
+    }
+  },
   data: function(){
     return {
       subject: {
-        name: "狗蛋儿",
+        name: "狗蛋1儿",
         age: '18month'
       }
     }
   }
 }
-// Vue.component('zy',{
-//   props: ["hehe", "name"],
-//   template: `<h3 style="color:purple" ><slot> zhou yan </slot>@@zy@@ {{name}} </h3>`,
-// })
 
 var zy = {
-  props: ["hehe", "name"],
-  template: `<h3 style="color:purple" ><slot> zhou yan </slot>@@zy@@ {{name}} </h3>`,
+  props: ["age", "name"],
+  template: `
+    <h3 style="color:purple" >
+      {{age}}---->zy <---！ {{name}} 
+    </h3>`,
 }
 const app = new Vue({
   router,
@@ -56,7 +63,8 @@ var hehe = new Vue({
   data: {
     sname: "这么早",
     age: 17,
-    name: "狗蛋儿"
+    name: "狗蛋儿",
+    testa: "深井冰",
   },
   store,
   computed: {
