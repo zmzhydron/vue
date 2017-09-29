@@ -1,17 +1,13 @@
 import "babel-polyfill"
 import "./index.htm"
-import router from "router.js"
+import router from "./router.js"
 import store from "./src/vuex/store.js"
-import vv from "./src/vue/index.vue"
-// import comp from "comp.js"
 import "./src/images/1.png"
 import "./src/css/1.scss"
 import Vuex, { mapState ,} from "vuex"
+import * as asdf from "aijiakesi"
 
-store.dispatch('b/add2', "张明之").then( val => {
-  console.log(store.state.b.count, " ~~~~~~~~~~~~~ ")
-
-})
+import uploadvue from "./src/vue/upload.vue"
 
 var gd = {
   props: ['name', 'age', 'type'],
@@ -27,37 +23,30 @@ var gd = {
       {{type}}111{{name}}{{age}}---->>>{{sonname}}
     </h2>`,
 };
-var zy = {
-  
-}
 
-Vue.component('zy',{
-  props: ["hehe", "name"],
-  template: `<h3 style="color:purple" ><slot> zhou yan </slot>zy {{name}} </h3>`,
-})
-
-//<goudan shitman="true" type="oops" v-bind="subject"></goudan>
 var ZMZCOMP = {
   template: `
-    <h2 color="red">zhangmingzhi COMP  {{name}} ---- 
-      <goudan shitman="true" type="oops" v-bind="subject">
-        <zy slot="zy" :name="name" ></zy>
-      </goudan>
+    <h2 color="red">zhangmingzhi COMP
+      <slot name="uploader"></slot>
     </h2>`,
   data: function(){
     return {
-      name: "狗蛋儿二",
       subject: {
         name: "狗蛋儿",
         age: '18month'
       }
     }
-  },
-  components: {
-    goudan: gd
   }
 }
+// Vue.component('zy',{
+//   props: ["hehe", "name"],
+//   template: `<h3 style="color:purple" ><slot> zhou yan </slot>@@zy@@ {{name}} </h3>`,
+// })
 
+var zy = {
+  props: ["hehe", "name"],
+  template: `<h3 style="color:purple" ><slot> zhou yan </slot>@@zy@@ {{name}} </h3>`,
+}
 const app = new Vue({
   router,
   store,
@@ -78,11 +67,40 @@ var hehe = new Vue({
   methods: {
     clicker: function(e){
       store.dispatch("hehe/rewritename", "sjb")
+      let isIE = false;
+      try{
+        var f = new FormData();  
+      }catch(e){
+        isIE = true;
+      }
+      var file;
+      if(isIE){
+        $("#haha").ajaxSubmit({
+          url: "api/upload",
+          type: "post",
+          success:function(val){
+            console.log(val);
+            console.log("!!!!!!!!!!!!!")
+          }
+        })
+        // console.log(file, " ****************** ")
+      }else{
+        file = document.getElementById("xixi").files[0];
+        ajax
+        .upload('api/upload')
+        .attach("hehe", file)
+        .end( (txt,raw) => {
+          console.log(txt,"***************")
+          console.log(raw)
+        })
+      }
     }
   },
   components: {
     zhangmingzhi: ZMZCOMP,
-    goudan: gd
+    goudan: gd,
+    uploader: uploadvue,
+    zy,
   }
 })
 

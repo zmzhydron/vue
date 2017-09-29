@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="src/vendors.js"></script>
   <script src="src/jquery.min.js"></script>
+  <script src="src/jquery.form.min.js"></script>
   <script src="src/vue.js"></script>
   
 </head>
 <body>
     <div id="hehe">
-    <h1 v-if="age === 21">v-ifss</h1>
-    <h1 v-else-if="age !== 21">v-else-if</h1>
+    <form action='' enctype="multipart/form-data" method="post" id="haha" name="fileForm"> 
+      <input type="file" class="file" name="hehe" id="xixi"> 
+    </form> 
     <h3 style="color:red">{{myname}}</h3>
     <button @click="clicker">change to sjb</button>
     <zhangmingzhi>
+      <goudan shitman="true" type="oops">
+          <zy slot="zy" :name="name" ></zy>
+      </goudan>
+      <uploader slot="uploader"></uploader>
     </zhangmingzhi>
     
   </div>

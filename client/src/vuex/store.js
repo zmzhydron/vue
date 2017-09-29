@@ -68,11 +68,28 @@ var hehe = {
     }
   }
 }
+var login = {
+  state: {
+    role: "zhangmingzhi",
+  },
+  actions: {
+    updateRole: function({commit, state, rootState}, value){
+      commit("updateRole", {value,})
+    }
+  },
+  mutations: {
+    updateRole: function(state, obj){
+      let { value } = obj;
+      state.role = value;
+    }
+  }
+}
 const store = new Vuex.Store({
   modules: {
     a: one,
     b: two,
     hehe,
+    login,
   }
 })
 

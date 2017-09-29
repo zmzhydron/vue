@@ -1,6 +1,10 @@
 var path = require("path")
 var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
+var pkg = require("./package.json")
+
+let { devServer: { server: proxySev, host, port } } = pkg;
+
 
 module.exports = {
   entry: {
@@ -20,7 +24,14 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "./client"),
-    port: 8899,
+    port: port,
+    host: host,
+    proxy: {
+      "/api": {
+        target: proxySev,
+        secure: false
+      }
+    },
     inline: true,
     noInfo: false,
     hot: true,
@@ -28,11 +39,8 @@ module.exports = {
     historyApiFallback: {
       rewrites: [
         { from: /^\/$/, to: 'index.htm' },
-    ],
+      ],
     },
-    // open: true,
-    // openPage: "app.htm",
-    // host: "10.0.2.203"
   },
   plugins : [
     new webpack.HotModuleReplacementPlugin(),
@@ -43,12 +51,14 @@ module.exports = {
       },
       {
         from: path.join(__dirname, "./node_modules/vue/dist/vue.js"),
+      },
+      {
+        from: path.join(__dirname, "./client/src/libs/jquery.form.min.js"),
       }
     ]),
     new webpack.ProvidePlugin({
-      // $: "jquery",
-      // jQuery: "jquery",
-    }),
+      ajax: "aijiakesi",
+    })
   ],
   module: {
     rules: [
@@ -99,13 +109,11 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: [
-      'client',
-      'node_modules'
-    ],
     extensions: [".vue",'.js','.coffee'],
     alias: {
       // "vue$": path.join(__dirname, "./node_modules/vue/dist/vue.js")
+      aijiakesi$: path.resolve(__dirname, "./client/src/libs/ajax.js"),
+      ajaxform$: path.resolve(__dirname, "./client/src/libs/jquery.form.min.js"),
     }
   }
 }
