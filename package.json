@@ -10,7 +10,7 @@
   },
   "devServer": {
     "server": "http://10.0.2.203:8081",
-    "host": "10.0.2.203",
+    "host": "localhost",
     "port": "9898"
   },
   "author": "",
