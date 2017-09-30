@@ -1,51 +1,52 @@
-import Vuex from "vuex"
-import oneStore from "storeSrc/one.js"
-import zmzStore from "storeSrc/zmz.js"
+import Vuex from 'vuex';
+import oneStore from 'storeSrc/one.js';
+import zmzStore from 'storeSrc/zmz.js';
 
+Vue.use(Vuex);
 
-Vue.use(Vuex)
-var two = {
-  namespaced: true,
+var glo = {
   state: {
     count: 0,
-    name: "zhangmingzhi"
+    name: 'zhangmingzhi'
   },
   mutations: {
-    add: function(state, obj) {
+    changename: function (state, obj) {
       let { value } = obj;
-      state.count = value;
+      state.name = value;
     }
   },
   actions: {
-    add2: function({commit, state, rootState}, value){
-      return new Promise( (resolve, reject) => {
-        commit("add", { value,})
-        resolve("2222ok")
-      })
+    changename: function ({ commit, state, rootState }, value) {
+      return new Promise((resolve, reject) => {
+        commit('changename', { value, });
+        resolve('2222ok');
+      });
     }
   }
-}
+};
 var login = {
   state: {
-    role: "zhangmingzhi",
+    role: 'zhangmingzhi',
   },
   actions: {
-    updateRole: function({commit, state, rootState}, value){
-      commit("updateRole", {value,})
+    updateRole: function ({ commit, state, rootState }, value) {
+      commit('updateRole', { value, });
     }
   },
   mutations: {
-    updateRole: function(state, obj){
+    updateRole: function (state, obj) {
       let { value } = obj;
       state.role = value;
     }
   }
-}
+};
 const store = new Vuex.Store({
   modules: {
-    hehe: oneStore,
+    one: oneStore,
     login,
+    glo,
+    zmz: zmzStore,
   }
-})
+});
 
 export default store;

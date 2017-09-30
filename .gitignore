@@ -8,3 +8,5 @@ webpack.cmd
 cnpm
 cnpm.cmd
 .vscode
+.svn
+.svn*
