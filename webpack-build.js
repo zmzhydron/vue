@@ -3,7 +3,7 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
 module.exports = {
   entry: {
-    loll: path.resolve(__dirname,"./client/index.js"),
+    lol: path.resolve(__dirname,"./client/index.js"),
   },
 //   main: [
 //     'webpack/hot/dev-server',
