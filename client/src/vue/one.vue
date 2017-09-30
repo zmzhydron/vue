@@ -7,7 +7,7 @@
     <button @click="gotozmz">gotozmz-vuex</button>
     <h3 class="one">{{path}}</h3>
     <one-one :father="name" :sn="sonname">
-      <oneOneOne></oneOneOne>
+      <oneOneOne :sn="sonname"></oneOneOne>
     </one-one>
   </div>
 </template>
