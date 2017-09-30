@@ -9,4 +9,4 @@ cnpm
 cnpm.cmd
 .vscode
 .svn
-.svn*
+/.svn/*
