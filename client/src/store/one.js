@@ -12,6 +12,7 @@ export default {
     },
     changePATH: function (state, obj) {
       let { value } = obj;
+      console.log('changePATH', value);
       state.path = value;
     }
   },
@@ -20,11 +21,6 @@ export default {
       let { path } = state;
       console.log(path, '~~~~~~~$$$$$$$$$$$$$$');
       return '/zmz';
-
-      // if (path === 'zhangmingzhi') {
-
-      // }
-      // return path;
     }
   },
   actions: {
@@ -39,6 +35,7 @@ export default {
       commit('changename', { value, }, { root: true });
     },
     gotoNY: function ({ commit, state, rootState }, value) {
+      console.log(`gotoNY`, value);
       commit('changePATH', { value, });
     }
   }
