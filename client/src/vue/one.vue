@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="color: pink">{{name}} >>[{{gets}}]>>>>@{{gloname}}@ {{sonname}}</h3>
+    <h3 style="color: pink">{{name}} >>[{{gets}}]>>>>@{{gloname}}@{{sonname}} ${{_onename}}$</h3>
     <button @click="changelocalname">changelocalname</button>
     <button @click="changeSTOREname">changeStateName</button>
     <button @click="changeGLONAME">GLONAME</button>
@@ -23,9 +23,13 @@
       <div v-for="obj in listone">
         <span>name: {{obj.name}}</span><span>age: {{obj.age}} --- {{renders(obj.age)}}</span>
       </div>
+      <h4>>>>>{{sync}}<<<<</h4>
     </div>
-    <one-one :father="name" :sn="sonname">
-      <oneOneOne :sn="sonname"></oneOneOne>
+    <one-one :syncone="sync" :onefather="name" :onesn="sonname" @one_event="changeeonepasstatre" :stateValue="name">
+      <oneOneOne no-matter-what-i-will-be-rich="true" slot="one_one" :sn="sonname"></oneOneOne>
+      <template scope="props">
+        <h2>@@@@@{{props.goal}}@@@@@@</h2>
+      </template>
     </one-one>
   </div>
 </template>
@@ -50,6 +54,7 @@ export default {
       values: 'enter your name here',
       ckstatus: false,
       selecs: '',
+      sync: 'g-sync',
       nowT: parseInt(new Date().valueOf()),
       listone: [
         {
@@ -73,7 +78,8 @@ export default {
   },
   computed: {
     ...mapState({
-      sonname: state => state.myson
+      sonname: state => state.myson,
+      _onename: state => state._onename,
     }),
     glasses: function(e) {
       console.log('glasses');
@@ -107,11 +113,13 @@ export default {
         age: makeChar()
       });
     },
+    changeeonepasstatre: function(value) {
+      console.log(value, '~~~~~~~~~~~~~');
+    },
     chchskstatus: function(e) {
       this.ckstatus = true;
     },
     renders: function(value) {
-      console.log(value, '<<<<<<<<<<<');
       return value + ' <<< ';
     },
     changelocalname: function(e) {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="oneone">{{name}} >>>> {{sn}}</h3>
+    <h3 class="oneoneone">{{name}} >>>> {{sn}}</h3>
   </div>
 </template>
 
@@ -16,7 +16,8 @@ export default {
 </script>
 
 <style>
-.oneone{
+.oneoneone{
   font-weight: bold;
+  color:red;
 }
 </style>

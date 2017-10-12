@@ -1,9 +1,14 @@
+import {subone, } from 'storeSrc/one_one.js';
+
+console.log(subone, 'subone 11111111');
+
 export default {
   namespaced: true,
   state: {
     myson: '狗1蛋',
     age: 29,
     path: 'one/狗1蛋',
+    _onename: 'baby_one_name'
   },
   mutations: {
     changemyname: function (state, obj) {
@@ -38,5 +43,8 @@ export default {
       console.log(`gotoNY`, value);
       commit('changePATH', { value, });
     }
+  },
+  modules: {
+    subone,
   }
 };
