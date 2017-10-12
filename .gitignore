@@ -7,4 +7,10 @@ webpack
 webpack.cmd
 cnpm
 cnpm.cmd
+<<<<<<< HEAD
 .vscode
+=======
+.vscode
+.svn
+/.svn/*
+>>>>>>> 06810af11c7586e7df5ac7c9aedc2ae359241eb6

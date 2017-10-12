@@ -1,30 +1,34 @@
 <template>
   <div>
-    <h1 class="one" v-if="hasFormData">支持formdata</h1>
-    <h1 class="one" v-else>不支持formdata</h1>
+    <h3 style="color: pink">{{sonname}} <<!!<<{{mom}}</h3>
   </div>
 </template>
 
 <script>
-module.exports = {
+
+import Vuex, { mapState } from 'vuex'
+
+export default {
   data: function(){
     return {
-      name: "张明之"
+      name: "张明之",
+      hasFormData: typeof FormData === 'undefined' ? false : true
     }
   },
   computed: {
-    hasFormData: function(){
-      return typeof FormData === 'undefined' ? false : true
-    }
-  },
+    mom: function(){
+      return "zy"
+    },
+    stats: function(){
+      return "r"
+    },
+    ...mapState({
+      sonname: state => state.hehe.myson
+    })
+  }
 }
 
 </script>
-
-<style>
-
-</style>
-
 <style>
   .one{
     color: lime;

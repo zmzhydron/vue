@@ -6,9 +6,12 @@ var pkg = require("./package.json")
 let { devServer: { server: proxySev, host, port } } = pkg;
 
 
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 module.exports = {
   entry: {
-    lol: path.resolve(__dirname,"./client/index.js")
+    lol: path.resolve(__dirname, "./client/index.js")
   },
   output: {
     path: path.resolve(__dirname, "./dev"),
@@ -18,9 +21,9 @@ module.exports = {
   // context: path.resolve(__dirname, "./client"),
   devtool: 'eval-source-map',
   externals: {
-    'jquery' : 'window.jQuery',
-    'jquery' : 'window.$',
-    'Vue': "Vue",
+    'jquery': 'window.jQuery',
+    'jquery': 'window.$',
+    'vue': "Vue",
   },
   devServer: {
     contentBase: path.join(__dirname, "./client"),
@@ -42,7 +45,7 @@ module.exports = {
       ],
     },
   },
-  plugins : [
+  plugins: [
     new webpack.HotModuleReplacementPlugin(),
     //拷贝打包目录下的文件、文件夹到指定的输出
     new CopyWebpackPlugin([
@@ -63,10 +66,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        // include: [resolve('client')],
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',  
+          loader: 'babel-loader',
           query: {
             presets: [
               ["env", {
@@ -75,7 +87,7 @@ module.exports = {
                 }
               }]
             ]
-        }
+          }
         }
       },
       {
@@ -109,11 +121,13 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".vue",'.js','.coffee'],
+    extensions: [".vue", '.js', '.coffee'],
     alias: {
       // "vue$": path.join(__dirname, "./node_modules/vue/dist/vue.js")
       aijiakesi$: path.resolve(__dirname, "./client/src/libs/ajax.js"),
       ajaxform$: path.resolve(__dirname, "./client/src/libs/jquery.form.min.js"),
+      storeSrc: path.resolve(__dirname, "./client/src/store"),
+      vueComp: path.resolve(__dirname, "./client/src/vue"),
     }
   }
 }
