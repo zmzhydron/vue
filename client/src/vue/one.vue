@@ -25,7 +25,7 @@
       </div>
       <h4>>>>>{{sync}}<<<<</h4>
     </div>
-    <one-one :syncone="sync" :onefather="name" :onesn="sonname" @one_event="changeeonepasstatre" :stateValue="name">
+    <one-one :eventa="eventa" :syncone="sync" :onefather="name" :onesn="sonname" @one_event="changeeonepasstatre" :stateValue="name">
       <oneOneOne no-matter-what-i-will-be-rich="true" slot="one_one" :sn="sonname"></oneOneOne>
       <template scope="props">
         <h2>@@@@@{{props.goal}}@@@@@@</h2>
@@ -112,6 +112,9 @@ export default {
         name: str,
         age: makeChar()
       });
+    },
+    eventa: function(value) {
+      console.log(value, 'eventa');
     },
     changeeonepasstatre: function(value) {
       console.log(value, '~~~~~~~~~~~~~');

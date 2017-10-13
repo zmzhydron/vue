@@ -3,7 +3,13 @@ var webpack = require("webpack");
 var CopyWebpackPlugin = require("copy-webpack-plugin")
 var pkg = require("./package.json")
 
-let { devServer: { server: proxySev, host, port } } = pkg;
+let {
+  devServer: {
+    server: proxySev,
+    host,
+    port
+  }
+} = pkg;
 
 
 function resolve(dir) {
@@ -38,18 +44,20 @@ module.exports = {
     inline: true,
     noInfo: false,
     hot: true,
-    stats: { colors: true },
+    stats: {
+      colors: true
+    },
     historyApiFallback: {
-      rewrites: [
-        { from: /^\/$/, to: 'index.htm' },
-      ],
+      rewrites: [{
+        from: /^\/$/,
+        to: 'index.htm'
+      }, ],
     },
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     //拷贝打包目录下的文件、文件夹到指定的输出
-    new CopyWebpackPlugin([
-      {
+    new CopyWebpackPlugin([{
         from: path.join(__dirname, "./node_modules/jquery/dist/jquery.min.js"),
       },
       {
@@ -64,8 +72,7 @@ module.exports = {
     })
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
@@ -93,11 +100,20 @@ module.exports = {
       {
         test: /\.vue$/,
         exclude: /node_modules/,
-        loader: "vue-loader",
+        use: [{
+            loader: "vue-loader",
+            options: {},
+          },
+          {
+            loader: "iview-loader",
+            options: {
+              prefix: false
+            }
+          }
+        ]
       },
       {
         test: /\.css?$/,
-        exclude: /node_modules/,
         loader: "style-loader!css-loader"
       },
       {
@@ -106,15 +122,21 @@ module.exports = {
       },
       {
         test: /\.scss?$/,
-        exclude: /node_modules/,
         loader: "style-loader!css-loader!sass-loader"
       },
       {
-        test: /\.(jpg|png|gif)$/,
-        exclude: /node_modules/,
+        test: /\.(jpg|png|gif|svg)(\?.*)?$/,
         loader: "url-loader",
         options: {
           limit: 1,
+          name: "./Images/[name]-[hash:4].[ext]"
+        }
+      },
+      {
+        test: /\.(eot|ttf|otf|woff)(\?.*)?$/,
+        loader: "url-loader",
+        options: {
+          limit: 100000,
           name: "./Images/[name]-[hash:4].[ext]"
         }
       }

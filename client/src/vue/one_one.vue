@@ -7,6 +7,7 @@
     <button @click="clicker">changestatevalue --> {{subonename}}</button>
     <input type="text" v-model="sync" @input="updateinput" />
     <button @click="syncclick">syncclick --> {{sync}}</button>
+    <button @click="eventa">parentClick</button>
   </div>
 </template>
 
@@ -15,7 +16,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions, mapGetters, } = createNamespacedHelpers('one/subone');
 export default {
-  props: ['onefather', 'onesn', 'stateValue', 'syncone'],
+  props: ['onefather', 'onesn', 'eventa', 'stateValue', 'syncone'],
   data: function() {
     return {
       name: 'one_one',

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3 class="oneoneone">{{name}} >>>> {{sn}}</h3>
+    <h3 class="oneoneone">{{name}} >><<<>> {{sn}}</h3>
+    <Icon type="help"></Icon>
+    <Alert type="success">成功提示文案</Alert>
   </div>
 </template>
 
