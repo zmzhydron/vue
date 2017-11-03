@@ -72,15 +72,16 @@ module.exports = {
     })
   ],
   module: {
-    rules: [{
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        // include: [resolve('client')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
+    rules: [
+      // {
+      //   test: /\.(js|vue)$/,
+      //   loader: 'eslint-loader',
+      //   enforce: 'pre',
+      //   // include: [resolve('client')],
+      //   options: {
+      //     formatter: require('eslint-friendly-formatter')
+      //   }
+      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,

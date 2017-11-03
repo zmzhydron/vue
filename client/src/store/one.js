@@ -1,7 +1,6 @@
 import {subone, } from 'storeSrc/one_one.js';
 
 console.log(subone, 'subone 11111111');
-
 export default {
   namespaced: true,
   state: {
