@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" id='aa' />
+  <img id='bb' />
+  <canvas width=600 height=600 id='cc'></canvas>
+</body>
+<style>
+  #bb {
+    width: 100px;
+    height: 100px;
+  }
+</style>
+<script>
+  window.onload = function () {
+    var aa = document.querySelector("#aa");
+    var bb = document.querySelector("#bb");
+    var cc = document.querySelector("#cc");
+    aa.addEventListener("change", function (e) {
+      console.log();
+      var r = window.URL.createObjectURL(e.target.files[0])
+      bb.src = r;
+      bb.onload = function () {
+        cc.getContext("2d").drawImage(bb, 0, 0);
+
+      }
+      setTimeout(function () {}, 0)
+    })
+  }
+</script>
+
+</html>

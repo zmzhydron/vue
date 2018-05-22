@@ -16,7 +16,7 @@ module.exports = {
     filename: "[name].js",
     // publicPath: "http://www.zzhangmingzhimba.com:8081/"
     // publicPath: "http://localhost:8081/"
-    publicPath: "/src/"
+    // publicPath: "/src/"
   },
   // devtool: 'eval-source-map',
   plugins : [
@@ -82,21 +82,21 @@ module.exports = {
       },
       {
         test: /\.scss?$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: "style-loader!css-loader!sass-loader"
       },
       {
         test: /\.css?$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: "style-loader!css-loader"
       },
       {
         test: /\.(jpg|png|gif)$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: "url-loader",
         options: {
           limit: 1,
-          name: "./Images/[name]-[hash:4].[ext]"
+          name: "./lalala/Images/[name]-[hash:4].[ext]"
         }
       }
     ]

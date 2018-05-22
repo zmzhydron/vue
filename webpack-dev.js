@@ -22,7 +22,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./dev"),
     filename: "[name].js",
-    publicPath: "/src/"
+    // publicPath: "./"
   },
   // context: path.resolve(__dirname, "./client"),
   devtool: 'eval-source-map',
@@ -130,15 +130,15 @@ module.exports = {
         loader: "url-loader",
         options: {
           limit: 1,
-          name: "./Images/[name]-[hash:4].[ext]"
+          name: "./lalala/Images/[name]-[hash:4].[ext]"
         }
       },
       {
         test: /\.(eot|ttf|otf|woff)(\?.*)?$/,
         loader: "url-loader",
         options: {
-          limit: 100000,
-          name: "./Images/[name]-[hash:4].[ext]"
+          limit: 1,
+          name: "./Images/shitfont/[name]-[hash:4].[ext]"
         }
       }
     ]

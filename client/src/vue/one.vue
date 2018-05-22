@@ -20,7 +20,7 @@
       </select>
       <p>{{selecs}} >>>> {{selecss}}</p>
       <button @click="addListOne">+++++++</button>
-      <div v-for="obj in listone">
+      <div :key=k v-for="(obj, k) in listone">
         <span>name: {{obj.name}}</span><span>age: {{obj.age}} --- {{renders(obj.age)}}</span>
       </div>
       <h4>>>>>{{sync}}<<<<</h4>

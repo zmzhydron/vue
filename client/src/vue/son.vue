@@ -1,16 +1,18 @@
 <template>
 <div>
   <zutton v-for="(item, index) in locas" :key="index" :cb="item.cb(index)">{{item.name}}</zutton>
-  <button @click="gogo">lastert</button>
+  <button @click="gogo">{{pa.name}}</button>
+  <Input v-model="pa.name"></Input>
 </div>  
 </template>
 
 <script>
 export default {
-	props: ["ba"],
+	props: ["ba", "pa"],
   data: function() {
     return {
-      local: $.extend(true, {}, this.$props.ba)
+      local: $.extend(true, {}, this.$props.ba),
+      btnname: this.pa.name
     }
   },
   watch: {
